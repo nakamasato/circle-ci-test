@@ -4,13 +4,6 @@ executors:
     working_directory: ~/workspace
     docker:
       - image: circleci/node:8.11.4
-
-commands:
-  e2e:
-    executor:
-      name: default
-    steps:
-      - run: echo e2e
   
 jobs:
   preparation:
@@ -25,7 +18,11 @@ jobs:
       name: default
     steps:
       - run: echo preparation
-      - e2e
+  e2e:
+    executor:
+      name: default
+    steps:
+      - run: echo e2e
 
 workflows:
   e2e:
@@ -34,6 +31,7 @@ workflows:
           filters:
             branches:
               ignore: master
+      - run: echo test
       - e2e:
           requires:
             - preparation
