@@ -31,7 +31,6 @@ workflows:
           filters:
             branches:
               ignore: master
-      - run: echo test
       - e2e:
           requires:
             - preparation
