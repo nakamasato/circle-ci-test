@@ -20,14 +20,14 @@ jobs:
           condition: << parameters.run_test >>
           steps:
             - run: echo begin test
-            - run: npm run test
+            - run: echo npm run test
             - run: echo end test
             - when:
                 condition: << parameters.run_lint >>
                 steps:
                   - run: echo begin lint
-                  - run: npm run lint
-                  - run: end lint
+                  - run: echo npm run lint
+                  - run: echo end lint
       - unless:
           condition: << parameters.run_test >>
           steps:
