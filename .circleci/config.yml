@@ -22,7 +22,7 @@ jobs:
             - run: echo "export DEPLOY_BRANCH=ci" >> $BASH_ENV; source $BASH_ENV
             - run: echo "export REPO=ORION" >> $BASH_ENV; source $BASH_ENV
             - run: echo $REPO
-            - run: exit
+            - run: exit 0
             - when:
                 condition: << parameters.run_lint >>
                 steps:
