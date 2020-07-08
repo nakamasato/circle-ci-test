@@ -4,6 +4,13 @@ executors:
     working_directory: ~/workspace
     docker:
       - image: circleci/node:8.11.4
+
+commands:
+  preparation:
+    description: "Register GCP access keys to CircleCI project"
+    steps:
+      - run: echo command preparation
+  
 jobs:
   preparation:
     parameters:
@@ -17,6 +24,7 @@ jobs:
       name: default
     steps:
       - run: echo preparation
+      - preparation
       - when:
           condition: << parameters.run_test >>
           steps:
