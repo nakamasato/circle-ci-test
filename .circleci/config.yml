@@ -6,10 +6,11 @@ executors:
       - image: circleci/node:8.11.4
 
 commands:
-  preparation:
-    description: "Register GCP access keys to CircleCI project"
+  e2e:
+    executor:
+      name: default
     steps:
-      - run: echo command preparation
+      - run: echo e2e
   
 jobs:
   preparation:
@@ -24,29 +25,8 @@ jobs:
       name: default
     steps:
       - run: echo preparation
-      - preparation
-      - when:
-          condition: << parameters.run_test >>
-          steps:
-            - run: echo "export DEPLOY_BRANCH=ci" >> $BASH_ENV; source $BASH_ENV
-            - run: echo "export REPO=ORION" >> $BASH_ENV; source $BASH_ENV
-            - run: echo $REPO
-            - run: exit 0
-            - when:
-                condition: << parameters.run_lint >>
-                steps:
-                  - run: echo begin lint
-                  - run: echo npm run lint
-                  - run: echo end lint
-      - unless:
-          condition: << parameters.run_test >>
-          steps:
-            - run: echo skip test
-  e2e:
-    executor:
-      name: default
-    steps:
-      - run: echo e2e
+      - e2e
+
 workflows:
   e2e:
     jobs:
