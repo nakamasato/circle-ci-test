@@ -1,0 +1,42 @@
+version: 2.1
+executors:
+  default:
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/node:8.11.4
+jobs:
+  check:
+    parameters:
+      run_test:
+        type: boolean
+      run_lint:
+        type: boolean
+        default: false
+    executor:
+      name: default
+    steps:
+      - run: echo begin steps
+      - when:
+          condition: << parameters.run_test >>
+          steps:
+            - run: echo begin test
+            - run: npm run test
+            - run: echo end test
+            - when:
+                condition: << parameters.run_lint >>
+                steps:
+                  - run: echo begin lint
+                  - run: npm run lint
+                  - run: end lint
+      - unless:
+          condition: << parameters.run_test >>
+          steps:
+            - run: echo skip test
+workflows:
+  normal:
+    jobs:
+      - check:
+          run_test: true
+          run_lint: false
+      - check:
+          run_test: false
