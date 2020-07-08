@@ -22,6 +22,9 @@ jobs:
             - run: echo begin test
             - run: echo npm run test
             - run: echo end test
+            - run: echo "export DEPLOY_BRANCH=ci" >> $BASH_ENV; source $BASH_ENV
+            - run: echo "export REPO=ORION" >> $BASH_ENV; source $BASH_ENV
+            - run: echo $REPO
             - when:
                 condition: << parameters.run_lint >>
                 steps:
