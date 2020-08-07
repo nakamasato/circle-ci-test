@@ -1,29 +1,19 @@
 version: 2.1
-executors:
-  default:
-    working_directory: ~/workspace
-    docker:
-      - image: circleci/node:8.11.4
-
 jobs:
-  build:
-    # working_directory: .
-    docker:
-      - image: circleci/python
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: build and push image with sha1 tag
-          command: |
-            docker build -t test .
+  build: 
+    docker: 
+      - image: circleci/node:9.8.0-stretch-browsers 
+    steps: 
+      - checkout 
+      - setup_remote_docker: 
+          docker_layer_caching: true 
+      - run: docker build .
 
-workflows:
-  ci:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - master
+# workflows:
+#   ci:
+#     jobs:
+#       - build:
+#           filters:
+#             branches:
+#               ignore:
+#                 - master
