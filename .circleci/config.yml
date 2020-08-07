@@ -4,36 +4,26 @@ executors:
     working_directory: ~/workspace
     docker:
       - image: circleci/node:8.11.4
-  
+
 jobs:
-  preparation:
-    parameters:
-      run_test:
-        type: boolean
-        default: true
-      run_lint:
-        type: boolean
-        default: false
-    executor:
-      name: default
+  build:
+    working_directory: .
+    docker:
+      - image: circleci/python
     steps:
-      - run: echo preparation
-  e2e:
-    executor:
-      name: default
-    steps:
-      - run: echo e2e
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: build and push image with sha1 tag
+          command: |
+            docker build -t test .
 
 workflows:
-  e2e:
+  ci:
     jobs:
-      - preparation:
+      - build:
           filters:
             branches:
-              ignore: master
-      - e2e:
-          requires:
-            - preparation
-          filters:
-            branches:
-              ignore: master
+              ignore:
+                - master
