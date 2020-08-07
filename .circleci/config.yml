@@ -8,12 +8,3 @@ jobs:
       - setup_remote_docker: 
           docker_layer_caching: true 
       - run: docker build .
-
-# workflows:
-#   ci:
-#     jobs:
-#       - build:
-#           filters:
-#             branches:
-#               ignore:
-#                 - master
