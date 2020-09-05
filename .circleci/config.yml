@@ -7,3 +7,4 @@ jobs:
     working_directory: ~/
     steps:
       - run: sleep 5 && nc -vz localhost 27017
+      - run: sleep 5 && nc -vz localhost 27017
