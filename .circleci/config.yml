@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: buildpack-deps:trusty
+      - image: mongo
+    working_directory: ~/
+    steps:
+      - run: sleep 5 && nc -vz localhost 27017
