@@ -15,4 +15,5 @@ jobs:
           command: |
             sleep 5
             nc -vz localhost 27017
+            sleep 10
             nc -vz localhost 3306
