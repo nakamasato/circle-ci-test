@@ -4,7 +4,15 @@ jobs:
     docker:
       - image: buildpack-deps:trusty
       - image: mongo
+      - image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: ~/
     steps:
-      - run: sleep 5 && nc -vz localhost 27017
-      - run: sleep 5 && nc -vz localhost 27017
+      - run:
+          command: |
+            sleep 5
+            nc -vz localhost 27017
+            nc -vz localhost 3306
